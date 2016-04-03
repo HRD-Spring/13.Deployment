@@ -100,4 +100,24 @@ public class UserDAO implements com.demo.dao.layer.UserDAO {
 			return "User is already there with this username";
 		}
 	}
+
+	@Override
+	public User getUserByUsername(String username) {
+		try {
+			Session session = HibernateConnection.doHibernateConnection().openSession();
+			List<User> users = session.createQuery("From User where username = :username")
+					.setParameter("username", username).list();
+			session.close();
+			if (users != null && users.size() == 1) {
+				return users.get(0);
+			} else {
+				return null;
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

@@ -13,5 +13,7 @@ public interface UserDAO {
 	public String doSignUp(String username, String password, String gender, String vehicle, String country, String image);
 	
 	public String doHibernateSigup(User user) ;
+	
+	public User getUserByUsername(String username);
 
 }

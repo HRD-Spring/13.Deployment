@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +31,23 @@ public class LoginController {
 		modelAndView.addObject("user", user);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/springLogin", method = RequestMethod.GET)
+	public ModelAndView springLogin() {
+		ModelAndView modelAndView = new ModelAndView("springLogin");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/springHome", method = RequestMethod.GET)
+	public ModelAndView springHome() {
+		ModelAndView modelAndView = new ModelAndView("springHome");
+		String usernmae = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		System.out.println(usernmae);
+		modelAndView.addObject("username", usernmae);
+		return modelAndView;
+	}
+
 
 	/*
 	 * @RequestMapping(value = "/login", method = RequestMethod.GET) public
